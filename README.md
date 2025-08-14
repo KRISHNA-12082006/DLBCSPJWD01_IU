@@ -1,4 +1,3 @@
-
 # StudyGenie
 
 A personalized flashcard web application for academic self-study, built with the MERN stack and Tailwind CSS.
@@ -75,7 +74,7 @@ StudyGenie enables students to create, organize, and revise flashcards efficient
     ```bash
     PORT=5500
     AI_API=https://openrouter.ai/api/v1/chat/completions
-    AI_API_KEY=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
+    AI_API_KEY=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
     FRONTEND_URL=http://localhost:5173
     DB_URI='mongodb+srv://sg-user:xyamU1qaCqj92sqy@sg-cluster.efevdja.mongodb.net/?retryWrites=true&w=majority&appName=SG-cluster'
     ```
