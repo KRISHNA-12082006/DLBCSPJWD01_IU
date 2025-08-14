@@ -1,0 +1,9 @@
+@import 'tailwindcss'
+
+/* 
+    - Entry point for Tailwind CSS v4 styles with Vite plugin
+    - Import all Tailwind layers with a single import
+    - Styles injected via @tailwindcss/vite plugin in vite.config.js
+    - See: https://tailwindcss.com/docs/installation/using-vite
+*/
+
