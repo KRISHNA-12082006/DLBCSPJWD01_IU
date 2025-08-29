@@ -74,11 +74,11 @@ StudyGenie enables students to create, organize, and revise flashcards efficient
     ```bash
     PORT=5500
     AI_API=https://openrouter.ai/api/v1/chat/completions
-    AI_API_KEY=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
+    AI_API_KEY=<openRouter_API_KEY>
     FRONTEND_URL=http://localhost:5173
-    DB_URI='mongodb+srv://sg-user:xyamU1qaCqj92sqy@sg-cluster.efevdja.mongodb.net/?retryWrites=true&w=majority&appName=SG-cluster'
+    DB_URI=<MongoDB_URI>
     ```
-* Obtained `AI_API_KEY` from OpenRouter and `DB_URI` from MongoDB Atlas.
+* Obtain `AI_API_KEY` from OpenRouter and `DB_URI` from MongoDB Atlas.
 
 1. **Run Application** :
 
@@ -125,13 +125,146 @@ StudyGenie enables students to create, organize, and revise flashcards efficient
 
 ## Testing
 
-Test cases are documented in the Phase 2 presentation (Slides 13–15), covering:
+Test cases cover:
 
 * Authentication (login, registration).
 * Collection management (create, rename, delete).
 * Section and flashcard operations (create, edit, bookmark).
 * AI tutor queries and navigation (desktop/mobile).
-  Refer to the presentation for detailed test cases (TC1–TC12).
+
+TC1: User Login
+Description: Tests successful login with valid credentials.
+Test Data: Email: testuser@example.com, Password: Password123
+Preconditions: User is registered in the system. Backend API is running.
+Steps:
+1. Navigate to /login.
+2. Enter email in the field.
+3. Enter password in the field.
+4. Click "Login".
+Expected Outcome: Redirect to /profile, "Logged in successfully" message, localStorage has user object.
+
+TC2: User Registration
+Description: Tests successful registration with valid data.
+Test Data: Email: newuser@example.com, Password: NewPass456
+Preconditions: User does not exist in the system. Backend API is running.
+Steps:
+1. Navigate to /register.
+2. Enter email in the field.
+3. Enter password in the field.
+4. Confirm password.
+5. Click "Register".
+Expected Outcome: Redirect to /login, "Registered successfully" message, new user in database.
+
+TC3: Create Collection
+Description: Tests creating a new collection for a logged-in user.
+Test Data: Title: Math Basics, User ID: user123
+Preconditions: User is logged in with ID user123. Backend API is running.
+Steps:
+1. Navigate to /profile.
+2. Enter title in input.
+3. Click "Create Collection".
+Expected Outcome: Collection in list, "Collection created" message, backend updates MongoDB.
+
+TC4: Rename Collection
+Description: Tests renaming an existing collection.
+Test Data: Collection ID: col456, New Title: Algebra Fundamentals
+Preconditions: User is logged in with ID user123. Collection col456 exists. Backend API is running.
+Steps:
+1. Navigate to /collections.
+2. Click "Rename" on target collection.
+3. Enter new title in prompt.
+4. Confirm.
+Expected Outcome: Title updated, no error message, reflected in UI.
+
+TC5: Delete Collection
+Description: Tests deleting an existing collection.
+Test Data: Collection ID: col456
+Preconditions: User is logged in with ID user123. Collection col456 exists. Backend API is running.
+Steps:
+1. Navigate to /collections.
+2. Click "Delete" on target collection.
+3. Confirm deletion in prompt.
+Expected Outcome: Collection removed from list, "Collection deleted" message, backend deletes from MongoDB.
+
+TC6: Create Section
+Description: Tests creating a new section in a collection.
+Test Data: Collection ID: col456, Name: Linear Equations, Bg Color: #1a202c, Text Color: #fff
+Preconditions: User is logged in with ID user123. Collection col456 exists. Backend API is running.
+Steps:
+1. Navigate to /collections/col456.
+2. Click "+ New Section".
+3. Enter name in prompt.
+4. Enter background color in prompt.
+5. Enter text color in prompt.
+6. Confirm.
+Expected Outcome: Section created, "Section created" message, displayed in collection with colors.
+
+TC7: Edit Section
+Description: Tests editing an existing section’s details.
+Test Data: Section ID: sec789, New Name: Quadratic Equations, New Bg Color: #559, New Text Color: #fff
+Preconditions: User is logged in with ID user123. Section sec789 exists. Backend API is running.
+Steps:
+1. Navigate to /collections/col456.
+2. Click "Edit" on target section.
+3. Update name in modal.
+4. Update background color.
+5. Update text color.
+6. Click "Save".
+Expected Outcome: Section updated, "Section updated" message, changes reflected in UI.
+
+TC8: Create Flashcards
+Description: Tests creating new flashcards in a section.
+Test Data: Section ID: sec789, Flashcards: [{ question: "2+2?", answer: "4" }]
+Preconditions: User is logged in with ID user123. Section sec789 exists. Backend API is running.
+Steps:
+1. Navigate to /sections/sec789.
+2. Click "+ Add Flashcards".
+3. Enter question and answer in modal.
+4. Click "Submit".
+Expected Outcome: Flashcards added, "Flashcards created" message, displayed in section grid.
+
+TC9: Toggle Bookmark
+Description: Tests bookmarking/unbookmarking a flashcard.
+Test Data: Flashcard ID: fc101, Initial Bookmarked: false
+Preconditions: User is logged in with ID user123. Flashcard fc101 exists. Backend API is running.
+Steps:
+1. Navigate to /sections/sec789.
+2. Click bookmark star (☆) on target flashcard.
+3. Navigate to /bookmarks.
+Expected Outcome: Star changes to ⭐, flashcard in /bookmarks, "Flashcard bookmarked" message.
+
+TC10: AI Tutor Query
+Description: Tests submitting a question to the AI tutor and receiving a response.
+Test Data: Question: "What is the Pythagorean theorem?"
+Preconditions: User is logged in with ID user123. AI API endpoint is configured. Backend API is running.
+Steps:
+1. Navigate to /tutor.
+2. Enter question in textarea.
+3. Click "Send".
+Expected Outcome: AI response in chat log, no error.
+
+TC11: Navigation Links
+Description: Tests navigation links in the navbar.
+Test Data: Links: /collections, /bookmarks, /tutor, /about
+Preconditions: User is logged in with ID user123. Backend API is running.
+Steps:
+1. Navigate to /profile.
+2. Click "Collections" in navbar.
+3. Return to /profile.
+4. Click "Bookmarks" in navbar.
+5. Repeat for "AI Tutor" and "About".
+Expected Outcome: Correct navigation, active link highlighted (violet-600), no errors.
+
+TC12: Mobile Menu Toggle
+Description: Tests the mobile menu toggle functionality.
+Test Data: Screen Width: <768px
+Preconditions: User is logged in with ID user123. Browser window resized to mobile view.
+Steps:
+1. Resize browser to mobile view.
+2. Click hamburger icon in navbar.
+3. Click "Collections" in menu.
+4. Click close icon (X).
+Expected Outcome: Menu opens/closes, navigation works, no errors.
 
 ## Future Enhancements
 
