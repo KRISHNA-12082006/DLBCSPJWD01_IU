@@ -54,7 +54,7 @@ StudyGenie enables students to create, organize, and revise flashcards efficient
    git clone https://github.com/KRISHNA-12082006/DLBCSPJWD01_IU
 ```
 
-1. **Install Dependencies** :
+2. **Install Dependencies** :
 
 * Navigate to `/studygenie` and `/backend` directories.
 * Run:
@@ -63,7 +63,7 @@ StudyGenie enables students to create, organize, and revise flashcards efficient
   ```
 * Note: `node_modules` and `.env` files are excluded via `.gitignore`.
 
-1. **Configure Environment Variables** :
+3. **Configure Environment Variables** :
 
 * Create `.env` files (not included in GitHub for security):
   * `/studygenie/.env`:
@@ -80,7 +80,7 @@ StudyGenie enables students to create, organize, and revise flashcards efficient
     ```
 * Obtain `AI_API_KEY` from OpenRouter and `DB_URI` from MongoDB Atlas.
 
-1. **Run Application** :
+4. **Run Application** :
 
 * In `/studygenie` and `/backend`, run:
   ```bash
@@ -88,7 +88,7 @@ StudyGenie enables students to create, organize, and revise flashcards efficient
   ```
 * Access frontend at `http://localhost:5173` and backend at `http://localhost:5500`.
 
-1. **Live Demo** :
+5. **Live Demo** :
 
 * Visit `https://studygenie-0j30.onrender.com/` for the deployed app.
 
