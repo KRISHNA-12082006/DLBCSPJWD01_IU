@@ -90,7 +90,7 @@ StudyGenie enables students to create, organize, and revise flashcards efficient
 
 5. **Live Demo** :
 
-* Visit `https://studygenie-0j30.onrender.com/` for the deployed app.
+* Visit [https://studygenie-0j30.onrender.com/](https://studygenie-0j30.onrender.com/) for the deployed app.
 
 ## Project Structure
 
